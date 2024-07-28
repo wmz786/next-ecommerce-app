@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Phone from "@/components/Phone";
-import { Check, Star, Stars } from "lucide-react";
+import { Check, Star } from "lucide-react";
 
 export default function Home() {
   return (
