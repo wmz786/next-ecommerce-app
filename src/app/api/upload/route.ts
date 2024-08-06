@@ -25,13 +25,19 @@ export const POST = async (req: NextRequest) => {
       // Write the file to the uploads directory
       await fs.writeFile(filePath, buffer);
 
-      return NextResponse.json({ success: true, path: filePath });
+      return NextResponse.json(
+        { success: true, path: filePath },
+        { status: 200 }
+      );
     } catch (error) {
       console.error("Error uploading file:", error);
-      return NextResponse.json({ error: "Failed to upload file" });
+      return NextResponse.json(
+        { error: "Failed to upload file" },
+        { status: 500 }
+      );
     }
   } else {
     // Method Not Allowed
-    return NextResponse.json({ error: "Method not allowed" });
+    return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
   }
 };
