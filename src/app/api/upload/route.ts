@@ -20,7 +20,8 @@ export const POST = async (req: NextRequest) => {
       // Handle file upload
       const files = formData.getAll("files") as File[];
       const fileToStore = files[0];
-      const filePath = `/uploads/${fileToStore.name}`;
+      const path = `/uploads/${fileToStore.name}`;
+      const filePath = `${uploadsDir}/${fileToStore.name}`;
 
       // get file buffer
       const bytes = await fileToStore.arrayBuffer();
@@ -35,7 +36,7 @@ export const POST = async (req: NextRequest) => {
       if (!configId) {
         const configuration = await db.configuration.create({
           data: {
-            imageUrl: filePath,
+            imageUrl: path,
             height: height || 500,
             width: width || 500,
           },
