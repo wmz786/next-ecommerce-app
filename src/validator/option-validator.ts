@@ -63,7 +63,7 @@ export const FINISHES = {
   options: [
     {
       label: "Smooth Finish",
-      view: "smooth",
+      value: "smooth",
       description: undefined,
       price: PRODUCT_PRICE.finish.smooth,
     },
