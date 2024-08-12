@@ -41,7 +41,7 @@ export const MODELS = {
 } as const;
 
 export const MATERIALS = {
-  name: "models",
+  name: "material",
   options: [
     {
       label: "Silicone",
@@ -74,4 +74,4 @@ export const FINISHES = {
       price: PRODUCT_PRICE.finish.textured,
     },
   ],
-};
+} as const;
