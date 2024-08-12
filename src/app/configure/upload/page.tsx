@@ -29,10 +29,8 @@ const Page = () => {
   const onDropAccepted = (acceptedFile: File[]) => {
     startTransition(() => {
       const formData = new FormData();
-      const configId = "";
-
       formData.append("files", acceptedFile[0]);
-      formData.append("configId", configId.toString());
+
       setIsUploading(true);
       const uploadingProgress = (event: AxiosProgressEvent) => {
         if (event.total === undefined) return;
