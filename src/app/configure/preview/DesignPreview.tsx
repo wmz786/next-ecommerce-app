@@ -13,10 +13,16 @@ import Confetti from "react-dom-confetti";
 import { createCheckoutSession } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import LoginModal from "@/components/LoginModal";
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   const router = useRouter();
   const { toast } = useToast();
+  const { id } = configuration;
+  const { user } = useKindeBrowserClient();
+  const [isLoggedModelOpen, setIsLoggedModelOpen] = useState<boolean>(false);
+
   const [showConfetti, setShowConfetti] = useState(false);
   useEffect(() => setShowConfetti(true));
 
@@ -54,6 +60,15 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     },
   });
 
+  const handleCheckout = () => {
+    if (user) {
+      createPaymentSession({ configId: id });
+    } else {
+      localStorage.setItem("configurationId", id);
+      setIsLoggedModelOpen(true);
+    }
+  };
+
   return (
     <>
       <div
@@ -65,7 +80,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
           config={{ elementCount: 200, spread: 90 }}
         />
       </div>
-
+      <LoginModal isOpen={isLoggedModelOpen} setIsOpen={setIsLoggedModelOpen} />
       <div className="mt-20 grid grid-cols-1 text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12">
         <div className="sm:col-span-4 md:col-span-3 md:row-span-2 md:row-end-2">
           <Phone
@@ -144,9 +159,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
             <div className="mt-8 flex justify-end pb-12">
               <Button
-                onClick={() =>
-                  createPaymentSession({ configId: configuration.id })
-                }
+                onClick={() => handleCheckout()}
                 disabled={false}
                 isLoading={false}
                 loadingText="loading"
