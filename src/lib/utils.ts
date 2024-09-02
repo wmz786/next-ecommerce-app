@@ -42,5 +42,6 @@ export function constructMetadata({
       creator: "@waismalikzada",
     },
     icons,
+    metadataBase: new URL("https://next-ecommerce-app-iota.vercel.app/"),
   };
 }
